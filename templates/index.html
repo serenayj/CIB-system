@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+
+
+  <html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>CIB prototype demo</title>
+
+    <script src="https://code.jquery.com/jquery-2.1.3.min.js" type="text/javascript"></script>
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js" type="text/javascript"></script>
+
+    <!-- Bootstrap core CSS -->
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js" type="text/javascript"></script>
+
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/css/bootstrapvalidator.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/ajax.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/login.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/chat.js' %}"></script    <!--script type="text/javascript" src="{% static 'js/share_listener.js' %}"></script-->
+    <script type="text/javascript" src="{% static 'js/jquery.gracefulWebSocket.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/megazine.js' %}"></script>
+    
+    
+    <link rel="stylesheet" type="text/css" href="{% static 'css/jumbotron.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="http://jqueryui.com/themes/base/jquery.ui.all.css">
+
+    <!--this is the rating plugin-->
+    <!--link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"-->
+    <script type="text/javascript" src="{% static 'js/bootstrap-rating-input.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/star-rating.css' %}">
+    <script type="text/javascript" src="{% static 'js/star-rating.js' %}"></script>
+    <!-- <link rel="stylesheet" href="css/rating-min.css"> -->
+
+    
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+      <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+      </head>
+      <body>
+        {% include 'authentication_modal.html' %}
+        <!--this is the nav bar in the top of the page-->
+
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#">CIB simulator</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="#" id = "curr-user-name" value = "{{ username }}">Hello {{ username }}</a></li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span><span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="#" data-toggle="modal" data-target="#authentication_modal">Sign in</a></li>
+                    <li><a href="#">Message</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#" id = "logout-btn">Sign out</a></li>
+                  </ul>
+                </li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Help <span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">How to use this website</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Acknowledgement</a></li>                    
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+        <!--this is the body part, containing talk area, search engine, share boards, and query history-->
+        <div class="container">
+          <div class="row">
+
+            <div class="col-md-3">
+              
+              <!--div class = "row">
+                  <div class= "col-md-12"-->
+                    <h3 class="ui-widget-header">Chatroom</h3>
+                    <!--<div id="tlkio" data-channel="7d316a" style="width:100%;height:400px;"></div><script async src="http://tlk.io/embed.js" type="text/javascript"></script>
+
+                    {% load socketio_tags %}
+                    {% socketio %}
+                    <script>
+                    var socket = new io.Socket();
+                    socket.connect();
+        // etc
+        </script>-->
+            <!--code from base_chat.html-->
+                    {% include "base_chat.html" %}
+                  <!--<iframe id = "chat" src="base_chat.html"></iframe-->
+                  <!--/div>  
+              </div-->
+            </div>
+
+          <div>    
+          <div class="col-md-6">
+            <div class="input-group search-bar">
+				<input type="text" class="form-control" placeholder="Search for..." id = "query">
+				<span class="input-group-btn">
+					<button class="btn btn-default" type="button" id = "search">Go!</button>
+          <button class="btn btn-default" type="button" id = "empty">Empty</button>
+                </span>
+            </div><!-- /input-group -->
+                    
+
+						            
+            <div id="content">
+               <ul class="nav nav-tabs">
+              <script>
+              $(function() {
+                $( "#content" ).tabs();
+              });
+              </script>
+              <h4>See what's trending...! Editor's pick!</h4>  
+             
+                <li><a href="#tabs-1">Girl's style</a></li>
+                <li><a href="#tabs-2">Boy's style</a></li>
+                <li><a href="#tabs-3">Search</a></li>
+                <!--style>
+                li {-moz-border-radius: 12px 12px 0 0; /* FF1+ */
+                  -webkit-border-radius: 12px 12px 0 0; /* Saf3-4 */
+                  border-radius: 12px 12px 0 0; /* Opera 10.5, IE9, Saf5, Chrome */
+                  border:1px solid black;
+                  display:inline;
+                  list-style-type:none;
+                  padding:5px;
+                }
+                li:hover {background:black;}
+                li a {text-decoration:none; color:black;}
+                li a:hover {color:white;}
+                </style-->
+              </ul>
+
+              <div id="my-tab-content" class="tab-content">
+              <div id = "tabs-1">      
+                <p><iframe id = "instg1" src="//users.instush.com/bee-gallery-v2/?cols=3&rows=3&size=medium&border=10&round=false&space=4&sl=true&bg=transparent&brd=true&pin=true&hc=e72476&ltc=3f3f3f&lpc=ffffff&fc=ffffff&user_id=230246924&username=serenaetjacq&sid=14184154&susername=shopstyle&tag=-1&stype=user&t=999999md0DVXyNTNE9bimrerVImq3p7EUyjBpPxJK1WC1iNl0ykxKQqlV2JdT481bUNoNBcLdiM6TsoZY" allowtransparency="true" frameborder="0" scrolling="no"  style="display:block;width:482px;height:482px;border:none;overflow:visible;" ></iframe></p>
+                <p>Want to see more megazine?</p><input type="text" class="form-control" placeholder="Search for..." id = "meg1"></input><button class="btn btn-default" type="button" id = "inst1">Go</button>
+
+              </div>
+
+              <div id = "tabs-2">
+                <p><iframe id = "instg2" src="//users.instush.com/bee-gallery-v2/?cols=3&rows=3&size=medium&border=10&round=false&space=4&sl=true&bg=transparent&brd=true&pin=true&hc=e72476&ltc=3f3f3f&lpc=ffffff&fc=ffffff&user_id=230246924&username=serenaetjacq&sid=395545229&susername=menwithstreetstyle&tag=-1&stype=user&t=999999md0DVXyNTNE9bimrerVImq3p7EUyjBpPxJK1WC1iNl0ykxKQqlV2JdT481bUNoNBcLdiM6TsoZY" allowtransparency="true" frameborder="0" scrolling="no"  style="display:block;width:555px;height:482px;border:none;overflow:visible;" ></iframe></p>
+                <p>Want to see more megazine?</p><input type="text" class="form-control" placeholder="Search for..." id = "meg2"></input><button class="btn btn-default" type="button" id = "inst2">Go</button>
+              </div>
+
+              <div id = "tabs-3">
+                <p>Product list</p>
+                <div class="row" id = "catalog">
+                </div>
+              </div>
+            </div>
+          </div>
+
+              
+            </div>
+          </div>
+        
+      <!--/div-->
+
+
+            
+      <div class="col-md-3">
+        
+          <div id="cart">
+            <h3 class="ui-widget-header">Sharing</h3> 
+
+            {% include "base_share.html" %} 
+                    <!--<div class="ui-widget-content">
+                      <ul>
+                        <li class="placeholder"> Add your items here</li>
+
+                        <p id = 'itemcomment'></p>
+                        <button id = "comment" style = 'display:none'>comment</button>
+
+                        <input type = 'text' id='mytext' style = 'display:none'></input>
+
+                        <div id='ratings' class = 'container' style = 'display:none'>
+                         <input id="input-2ba" type="number" class="rating" min="0" max="5" step="0.5" data-stars=5 data-size="xs"
+                         data-symbol="&#xe005;" data-default-caption="{rating} hearts" data-star-captions="{}">
+                        </div>
+                        </div>
+                      </ul>
+                    </div-->
+                  </div>
+                
+              </div>
+              </div>
+            </div>
+
+
+            <div>
+              <div class="row">
+                <div class="col-md-2">
+                  <h3 class="ui-widget-header">Query history</h3>
+                  <div class="container">
+                    <p>See what others are searching</p>
+                    <!--input type='number' name='your_awesome_parameter' id='some_id' class='rating' data-clearable='remove' data-icon-lib='fa' data-active-icon='fa-heart' data-inactive-icon='fa-heart-o' data-clearable-icon='fa-trash-o'/-->
+                    
+                    <li id = "querylist">
+                    </li>
+                  </div>
+                  </div>
+
+
+                <div class="col-md-8">
+                  <div id = "streetstyle">
+                    <p>Street style!!!</p>  
+                    <iframe src="//users.instush.com/h-slider/?cols=6&round=true&circle=false&pin=true&user_id=230246924&username=serenaetjacq&sid=358307080&susername=streetstyleinspirations&tag=-1&stype=user&t=999999md0DVXyNTNE9bimrerVImq3p7EUyjBpPxJK1WC1iNl0ykxKQqlV2JdT481bUNoNBcLdiM6TsoZY" allowtransparency="true" frameborder="0" scrolling="no"  style="display:block;width:1020px;height:190px;border:none;overflow:visible;" ></iframe>       
+                  </div>
+                </div>
+              </div>
+            </div>
+              
+
+            </body>
+            </html>
+

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+{{ block.super }}
+<h1> {{ chat.name }} </h1>
+<textarea name="term" id="inputbox" cols="20" rows="4"></textarea>
+<div id="message_list">
+  <ul id="chat_box_text">
+  	{% for ChatHistory.text in text %}
+            <li>{{ChatHistory.username}}: {{ChatHistory.text}}</li>
+        {% endfor %}
+  </ul>
+</div>
+{% endblock %}
