@@ -25,7 +25,8 @@ def saverecord(request):
 
 	history = request.REQUEST.get('history', 'nohistory')
 	savehistory = eval(history)
-	print savehistory
+	#print savehistory
+
 	thisuser = User.objects.get(username=savehistory['userid'])
 	# if elif etc
 	try:
